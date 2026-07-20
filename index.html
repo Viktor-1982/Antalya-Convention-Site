@@ -1093,9 +1093,10 @@
                         <p style="font-size: 13px; margin-bottom: 8px;">Задайте курс турецкой лиры в рублях, чтобы автоматически пересчитать все цены на сайте:</p>
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span style="font-size: 14px; font-weight: 600;">1 TRY = </span>
-                            <input type="number" id="lira-rate" value="2.7" step="0.1" min="0.1" style="width: 70px; padding: 6px 10px; background: rgba(0,0,0,0.15); border: 1px solid var(--border-glow); border-radius: var(--radius-sm); color: var(--text-main); font-weight: 700; outline: none; text-align: center;" oninput="updatePrices()">
+                            <input type="number" id="lira-rate" value="1.67" step="0.01" min="0.1" style="width: 70px; padding: 6px 10px; background: rgba(0,0,0,0.15); border: 1px solid var(--border-glow); border-radius: var(--radius-sm); color: var(--text-main); font-weight: 700; outline: none; text-align: center;" oninput="updatePrices()">
                             <span style="font-size: 14px; font-weight: 600;">RUB (₽)</span>
                         </div>
+                        <div id="rate-status" style="margin-top: 6px;"></div>
                     </div>
                     
                     <p style="margin-bottom: 8px;"><strong class="text-white">Обмен валюты:</strong> Обменять рубли на турецкие лиры можно в городе. Много обменников находится в центре города, например, в районе <strong class="text-white">ТЦ "МаркАнталия"</strong>.</p>
@@ -1216,6 +1217,8 @@
             lucide.createIcons();
             // Update prices based on default rate
             updatePrices();
+            // Fetch live Lira rate automatically
+            fetchLiveLiraRate();
             // Load theme from localStorage
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'light') {
@@ -1224,6 +1227,38 @@
                 lucide.createIcons();
             }
         });
+
+        // Async Fetch Live Lira rate from API
+        async function fetchLiveLiraRate() {
+            const statusEl = document.getElementById('rate-status');
+            if (statusEl) {
+                statusEl.innerHTML = `<span style="color: var(--text-soft); font-size: 11px;"><i data-lucide="refresh-cw" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i> Обновление курса...</span>`;
+                lucide.createIcons();
+            }
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/TRY');
+                if (!res.ok) throw new Error('API network error');
+                const data = await res.json();
+                if (data && data.rates && data.rates.RUB) {
+                    const liveRate = parseFloat(data.rates.RUB.toFixed(2));
+                    const rateInput = document.getElementById('lira-rate');
+                    if (rateInput) {
+                        rateInput.value = liveRate;
+                        updatePrices();
+                    }
+                    if (statusEl) {
+                        statusEl.innerHTML = `<span style="color: var(--whatsapp); font-size: 11px; font-weight: 600;"><i data-lucide="check-circle" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i> Авто-курс: 1 TRY = ${liveRate} RUB</span>`;
+                        lucide.createIcons();
+                    }
+                }
+            } catch (err) {
+                console.log('Using default rate:', err);
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color: var(--text-soft); font-size: 11px;"><i data-lucide="info" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i> Курс по умолчанию: 1.67 RUB</span>`;
+                    lucide.createIcons();
+                }
+            }
+        }
 
         // Switch tabs logic
         function switchTab(tabId) {
@@ -1361,6 +1396,21 @@
             searchInput.focus();
         }
 
+        function getLiraPlural(num) {
+            const lastDigit = num % 10;
+            const lastTwoDigits = num % 100;
+            if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+                return 'лир';
+            }
+            if (lastDigit === 1) {
+                return 'лира';
+            }
+            if (lastDigit >= 2 && lastDigit <= 4) {
+                return 'лиры';
+            }
+            return 'лир';
+        }
+
         // Lira to Ruble dynamic price updates
         function updatePrices() {
             const rateInput = document.getElementById('lira-rate');
@@ -1370,11 +1420,12 @@
             priceTags.forEach(tag => {
                 const lira = parseFloat(tag.getAttribute('data-lira'));
                 if (!isNaN(lira)) {
+                    const currencyName = getLiraPlural(lira);
                     if (rate > 0) {
                         const rub = Math.round(lira * rate);
-                        tag.innerHTML = `${lira} лир <span style="font-size: 12px; color: var(--secondary); font-weight: 600; opacity: 0.95;">(~${rub} ₽)</span>`;
+                        tag.innerHTML = `${lira} ${currencyName} <span style="font-size: 12px; color: var(--secondary); font-weight: 600; opacity: 0.95;">(~${rub} ₽)</span>`;
                     } else {
-                        tag.innerHTML = `${lira} лир`;
+                        tag.innerHTML = `${lira} ${currencyName}`;
                     }
                 }
             });
