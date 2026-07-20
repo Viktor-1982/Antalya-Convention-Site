@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Анталия 2026 — Инфо-путеводитель для гостей</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-main: #070a13;
+            --bg-card: rgba(19, 27, 46, 0.7);
+            --bg-card-hover: rgba(28, 38, 62, 0.85);
+            --border-glow: rgba(0, 242, 254, 0.15);
+            --border-glow-hover: rgba(0, 242, 254, 0.4);
+            
+            --primary: #00f2fe;
+            --primary-glow: rgba(0, 242, 254, 0.3);
+            --secondary: #ffb300;
+            --secondary-glow: rgba(255, 179, 0, 0.25);
+            --whatsapp: #25d366;
+            --whatsapp-glow: rgba(37, 211, 102, 0.3);
+            
+            --text-main: #f8fafc;
+            --text-soft: #94a3b8;
+            --text-dark: #64748b;
+            
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 40px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 172, 254, 0.15) 0px, transparent 40%),
+                radial-gradient(at 100% 100%, rgba(0, 242, 254, 0.1) 0px, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Container styling */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header styling */
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 20px 0 10px 0;
+        }
+
+        .header-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2) 0%, rgba(79, 172, 254, 0.1) 100%);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 12px;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 30%, #a5f3fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-soft);
+            font-weight: 500;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 6px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-soft);
+            padding: 12px 6px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .tab-btn.active {
+            background: var(--bg-card-hover);
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+        }
+
+        /* Tab Content Pane */
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphic Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-glow);
+            padding: 24px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--border-glow-hover);
+            background: var(--bg-card-hover);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.3;
+        }
+
+        .card.warning::before {
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 242, 254, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--primary);
+        }
+
+        .card.warning .card-icon {
+            background: rgba(255, 179, 0, 0.1);
+            color: var(--secondary);
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .card-content {
+            font-size: 14px;
+            color: var(--text-soft);
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: rgba(255, 179, 0, 0.08);
+            border: 1px dashed rgba(255, 179, 0, 0.3);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin: 14px 0;
+            color: var(--text-main);
+            font-size: 13.5px;
+        }
+
+        .highlight-box.cyan {
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px dashed rgba(0, 242, 254, 0.3);
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .highlight-box.cyan .highlight-title {
+            color: var(--primary);
+        }
+
+        /* Bullet lists */
+        .info-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-list li::before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Button controls */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 130px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            border: none;
+            color: #070a13;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #00d2de 0%, #3f9cde 100%);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+        }
+
+        .btn-whatsapp {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            color: #25d366;
+        }
+
+        .btn-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.2);
+            box-shadow: 0 4px 12px var(--whatsapp-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 179, 0, 0.1);
+            border: 1px solid rgba(255, 179, 0, 0.4);
+            color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 179, 0, 0.2);
+            box-shadow: 0 4px 12px var(--secondary-glow);
+        }
+
+        /* Mini pill badge */
+        .badge {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            padding: 2px 8px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .badge-accent {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary);
+            border-color: rgba(0, 242, 254, 0.2);
+        }
+
+        /* Flex helpers */
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .text-white {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Toast notification styling */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(19, 27, 46, 0.95);
+            border: 1px solid var(--primary);
+            color: var(--text-main);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 15px var(--primary-glow);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            opacity: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Image modal container */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 10, 19, 0.95);
+            z-index: 2000;
+            backdrop-filter: blur(15px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            max-width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Grid for utility cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        /* Footer styling */
+        .footer-logo {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 11px;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        /* Map selection buttons in cards */
+        .maps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .map-btn {
+            font-size: 11px;
+            padding: 8px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-soft);
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .map-btn:hover {
+            color: var(--text-main);
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        /* App download list */
+        .app-links {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .app-tag {
+            font-size: 12px;
+            color: var(--primary);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <header>
+            <div class="header-tag">Информация для гостей</div>
+            <h1>АНТАЛИЯ 2026</h1>
+            <div class="subtitle">Интерактивный путеводитель и справочник</div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('tab-expo')">
+                <i data-lucide="map-pin"></i>
+                Экспо-Центр
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab-transport')">
+                <i data-lucide="car"></i>
+                Транспорт
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab-info')">
+                <i data-lucide="info"></i>
+                Справочник
+            </button>
+        </nav>
+
+        <!-- Tab 1: Expo Center -->
+        <div id="tab-expo" class="tab-pane active">
+            
+            <!-- Address and General Info -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="map-pin"></i></div>
+                    <div class="card-title">Antalya Expo Center</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 12px;">Выставочный комплекс, место проведения мероприятия.</p>
+                    
+                    <div class="highlight-box cyan" style="margin-bottom: 16px;">
+                        <div class="highlight-title"><i data-lucide="compass"></i> Адрес комплекса:</div>
+                        <p class="text-white" id="expo-address">Soğucaksu, 25001 sk. NO:1/4</p>
+                    </div>
+
+                    <div class="btn-group" style="margin-bottom: 16px;">
+                        <button class="btn btn-primary" onclick="copyText('Soğucaksu, 25001 sk. NO:1/4', 'Адрес скопирован!')">
+                            <i data-lucide="copy"></i> Скопировать адрес
+                        </button>
+                    </div>
+
+                    <div style="font-size: 12px; margin-top: 14px; font-weight: 600; color: var(--text-soft); margin-bottom: 6px;">Открыть адрес в навигаторе:</div>
+                    <div class="maps-grid">
+                        <a href="https://yandex.ru/maps/?text=Antalya+Expo+Center+Soğucaksu" target="_blank" class="map-btn">
+                            <i data-lucide="navigation"></i> Яндекс
+                        </a>
+                        <a href="https://maps.google.com/?q=Antalya+Expo+Center+Soğucaksu,+25001+sk.+NO:1/4" target="_blank" class="map-btn">
+                            <i data-lucide="map"></i> Google
+                        </a>
+                        <a href="maps://maps.apple.com/?q=Antalya+Expo+Center+Soğucaksu" target="_blank" class="map-btn">
+                            <i data-lucide="compass"></i> Apple
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tram T1B -->
+            <div class="card warning">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="train"></i></div>
+                    <div class="card-title">Трамвай T1B</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 10px;"><strong class="text-white">Маршрут:</strong> FATIH — EXPO</p>
+                    <p style="margin-bottom: 10px;">Для проезда к Экспо-Центру вам необходимо ехать до остановки:</p>
+                    
+                    <div class="highlight-box" style="margin: 10px 0;">
+                        <div class="highlight-title" style="color: var(--secondary);"><i data-lucide="map-pinned"></i> Нужная остановка:</div>
+                        <p class="text-white" style="font-size: 16px; font-weight: 700;">15210 PINARLI ANFAŞ</p>
+                    </div>
+
+                    <div class="highlight-box warning" style="background: rgba(239, 68, 68, 0.08); border: 1px dashed rgba(239, 68, 68, 0.3); margin-top: 14px; color: var(--text-main);">
+                        <div class="highlight-title" style="color: #ef4444;"><i data-lucide="alert-triangle"></i> Важно не перепутать!</div>
+                        <p>На лобовом стекле / табло трамвая должно быть написано <strong class="text-white">“EXPO”</strong>, а не “HAVALIMANI” (Аэропорт).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Way Back -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="redo"></i></div>
+                    <div class="card-title">Обратный путь</div>
+                </div>
+                <div class="card-content">
+                    <p>Для поездки обратно в город используйте остановку:</p>
+                    <div class="highlight-box cyan" style="margin: 10px 0;">
+                        <div class="highlight-title"><i data-lucide="bus"></i> Остановка обратно в город:</div>
+                        <p class="text-white" style="font-size: 16px; font-weight: 700;">540 М</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tab 2: Transport -->
+        <div id="tab-transport" class="tab-pane">
+            
+            <!-- Taxi -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="car"></i></div>
+                    <div class="card-title">Такси</div>
+                </div>
+                <div class="card-content">
+                    <div class="flex-between">
+                        <span>Посадка:</span>
+                        <span class="text-white">65 лир</span>
+                    </div>
+                    <div class="flex-between">
+                        <span>1 км пути:</span>
+                        <span class="text-white">44 лиры</span>
+                    </div>
+                    <div class="flex-between" style="border-bottom: 1px dashed rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 10px;">
+                        <span>Минимальная поездка:</span>
+                        <span class="text-white">210 лир</span>
+                    </div>
+
+                    <div class="highlight-box cyan">
+                        <div class="highlight-title"><i data-lucide="pocket-knife"></i> Контроль поездки:</div>
+                        <p>Для надежности поездки всегда просите, чтобы водитель включил счетчик (тур. <strong class="text-white">sayaç</strong>, читается как <strong class="text-white">саяч</strong>).</p>
+                        <p style="margin-top: 6px; font-size: 12px; color: var(--text-soft);">Он находится прямо на зеркале заднего вида.</p>
+                    </div>
+
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-soft); margin-bottom: 6px;">Рекомендуемые официальные приложения:</div>
+                    <div class="app-links">
+                        <span class="app-tag">Uber</span>
+                        <span class="app-tag">BiTaksi</span>
+                        <span class="app-tag">İTaksi</span>
+                        <span class="app-tag">Martı</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Public Transport & Antalya Kart -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="credit-card"></i></div>
+                    <div class="card-title">Общественный транспорт</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 12px;">Для оплаты проезда вам понадобится транспортная карта <strong class="text-white">Antalyakart</strong>.</p>
+                    
+                    <div class="flex-between">
+                        <span>Цена самой карты:</span>
+                        <span class="text-white">165 лир</span>
+                    </div>
+                    <div class="flex-between" style="margin-bottom: 12px;">
+                        <span>Стоимость проезда (любой транспорт):</span>
+                        <span class="text-white">42 лиры</span>
+                    </div>
+
+                    <div class="highlight-box cyan" style="margin: 12px 0;">
+                        <div class="highlight-title"><i data-lucide="users"></i> Экономия:</div>
+                        <p><strong class="text-white">1 карту можно купить на всю семью</strong> и проходить по ней в транспорт по очереди.</p>
+                    </div>
+
+                    <p style="margin-top: 10px; font-size: 13.5px;">
+                        <strong class="text-white">Где купить и пополнить:</strong> в аппаратах на остановках трамвая или автобуса. Аппарат принимает <strong class="text-white">только наличные лиры</strong>.
+                    </p>
+
+                    <div class="highlight-box" style="margin-top: 14px; background: rgba(0, 242, 254, 0.03); border: 1px solid rgba(0, 242, 254, 0.15);">
+                        <div class="highlight-title" style="color: var(--primary);"><i data-lucide="smartphone"></i> Приложение Antalya Kart:</div>
+                        <p style="font-size: 13px;">Скачайте на телефон (PlayMarket / Apple Store). Позволяет планировать поездки, отслеживать автобусы/трамваи в реальном времени, находить ближайшие остановки и терминалы.</p>
+                        <ul class="info-list" style="margin-top: 8px;">
+                            <li>Есть русский язык</li>
+                            <li>Работает без регистрации</li>
+                            <li>Для работы приложения нужен интернет!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tab 3: Handbook (Info, Medical, Airport) -->
+        <div id="tab-info" class="tab-pane">
+            
+            <!-- Airport (AYT) -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="plane"></i></div>
+                    <div class="card-title">Аэропорт Анталии (AYT)</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 12px;">Один из самых загруженных аэропортов Турции. Имеет три основных терминала:</p>
+                    <ul class="info-list" style="margin-bottom: 12px;">
+                        <li><strong class="text-white">Terminal 1 (T1)</strong> — международный (основной поток)</li>
+                        <li><strong class="text-white">Terminal 2 (T2)</strong> — международный (чартеры и регулярные)</li>
+                        <li><strong class="text-white">Terminal 3 (Domestic)</strong> — внутренние рейсы по Турции</li>
+                    </ul>
+
+                    <div class="highlight-box cyan" style="margin: 12px 0;">
+                        <div class="highlight-title"><i data-lucide="refresh-cw"></i> Трансфер между терминалами:</div>
+                        <p>Между <strong class="text-white">T2 и T1</strong> каждые 20 минут курсируют бесплатные автобусы-шаттлы (<strong class="text-white">Free Shuttle</strong>).</p>
+                    </div>
+
+                    <div class="highlight-box warning" style="background: rgba(255, 179, 0, 0.05); border: 1px dashed rgba(255, 179, 0, 0.2); margin-top: 14px;">
+                        <div class="highlight-title" style="color: var(--secondary);"><i data-lucide="help-circle"></i> Как узнать свой терминал?</div>
+                        <p style="font-size: 13.5px; margin-bottom: 8px;">Всегда проверяйте терминал вылета заранее (они распределяются по авиакомпаниям, а не направлениям):</p>
+                        <ul class="info-list" style="margin-top: 4px; font-size: 13px;">
+                            <li>В билете (boarding pass)</li>
+                            <li>На сайте авиакомпании</li>
+                            <li>На онлайн-табло: <a href="https://antalya-airport.aero" target="_blank" style="color: var(--primary); text-decoration: underline;">antalya-airport.aero</a></li>
+                            <li>На электронных табло в самом аэропорту</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lunches -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="utensils"></i></div>
+                    <div class="card-title">Обеды для гостей</div>
+                </div>
+                <div class="card-content">
+                    <div class="highlight-box cyan" style="margin: 0;">
+                        <div class="highlight-title"><i data-lucide="gift"></i> Бесплатные ланч-боксы:</div>
+                        <p>Гости из других стран могут получить <strong class="text-white">бесплатные ланч-боксы</strong> во время обеденного перерыва. Для этого необходимо подойти к столам раздачи в <strong class="text-white">главном фойе</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Services -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="activity"></i></div>
+                    <div class="card-title">Медицинские услуги</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 12px;">В Анталии есть несколько больниц с русскоговорящим персоналом (анализы, диагностика, приём врачей):</p>
+                    
+                    <!-- Hospital 1 -->
+                    <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; margin-top: 12px;">
+                        <div class="flex-between">
+                            <span class="text-white" style="font-size: 15px;">Больница Özel Olimpos</span>
+                            <span class="badge badge-accent">Русский язык</span>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-soft); margin-top: 2px;">Запись на прием и цены у русскоговорящего администратора:</p>
+                        <div class="btn-group" style="margin-top: 10px;">
+                            <a href="tel:+905342627054" class="btn"><i data-lucide="phone"></i> Позвонить</a>
+                            <a href="https://wa.me/905342627054?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%AF%20%D0%B3%D0%BE%D1%81%D1%82%D1%8C%20%D0%BC%D0%B5%D1%80%D0%BE%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%B8%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B5%D0%BB%D0%B0%20%D0%B1%D1%8B%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C..." target="_blank" class="btn btn-whatsapp"><i data-lucide="message-square"></i> WhatsApp</a>
+                        </div>
+                    </div>
+
+                    <!-- Hospital 2 -->
+                    <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; margin-top: 16px;">
+                        <div class="flex-between">
+                            <span class="text-white" style="font-size: 15px;">Больница Akdeniz Şifa</span>
+                            <span class="badge badge-accent">Русский язык</span>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-soft); margin-top: 2px;">Запись на прием и цены у русскоговорящего администратора:</p>
+                        <div class="btn-group" style="margin-top: 10px;">
+                            <a href="tel:+905492294910" class="btn"><i data-lucide="phone"></i> Позвонить</a>
+                            <a href="https://wa.me/905492294910?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%AF%20%D0%B3%D0%BE%D1%81%D1%82%D1%8C%20%D0%BC%D0%B5%D1%80%D0%BE%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%B8%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B5%D0%BB%D0%B0%20%D0%B1%D1%8B%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C..." target="_blank" class="btn btn-whatsapp"><i data-lucide="message-square"></i> WhatsApp</a>
+                        </div>
+                    </div>
+
+                    <!-- Pharmacies -->
+                    <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; margin-top: 16px;">
+                        <p><strong class="text-white">Аптеки (тур. ECZANE):</strong></p>
+                        <p style="font-size: 13.5px; margin-top: 4px;">Напишите в поисковой строке Гугл- или Яндекс-карт слово <strong class="text-white">«ECZANE»</strong> для поиска ближайшей аптеки.</p>
+                        <ul class="info-list" style="margin-top: 6px; font-size: 13px;">
+                            <li>Работают с 9:00 до 18:00–19:00.</li>
+                            <li>В воскресенье большинство аптек закрыты (работают только дежурные).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Services -->
+            <div class="card warning">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="shield-alert"></i></div>
+                    <div class="card-title">Экстренная помощь</div>
+                </div>
+                <div class="card-content">
+                    <div class="flex-between" style="border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; margin-bottom: 10px;">
+                        <div>
+                            <p class="text-white" style="font-size: 15px;">Единая экстренная служба</p>
+                            <p style="font-size: 12px; color: var(--text-soft);">Пожарные, скорая помощь, полиция</p>
+                        </div>
+                        <a href="tel:112" class="btn btn-secondary" style="min-width: auto; padding: 8px 16px;"><i data-lucide="phone-call"></i> 112</a>
+                    </div>
+
+                    <div>
+                        <p class="text-white" style="font-size: 15px; margin-bottom: 4px;">Горячая линия Анталия</p>
+                        <p style="font-size: 13px; line-height: 1.5; margin-bottom: 8px;">
+                            Используйте этот номер <strong class="text-white">только для реальных экстренных случаев</strong> (автомобильная авария, проблема на границе/с въездом, срочная незапланированная госпитализация).
+                        </p>
+                        <div class="btn-group">
+                            <a href="tel:+905513881132" class="btn btn-secondary"><i data-lucide="phone"></i> Позвонить</a>
+                            <button class="btn" onclick="copyText('+905513881132', 'Номер горячей линии скопирован!')"><i data-lucide="copy"></i> Копировать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="shield"></i></div>
+                    <div class="card-title">Безопасность</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 8px;">Анталия — относительно безопасный город. Соблюдайте базовые меры предосторожности: держите личные вещи в поле зрения.</p>
+                    <div class="highlight-box warning" style="background: rgba(255, 179, 0, 0.04); border: 1px solid rgba(255, 179, 0, 0.2); margin-top: 10px; color: var(--text-main);">
+                        <p><i data-lucide="info" style="width: 14px; height: 14px; display: inline; vertical-align: middle; margin-right: 4px; color: var(--secondary);"></i> <strong class="text-white">Всегда носите с собой оригинал загранпаспорта.</strong></p>
+                        <p style="font-size: 13px; margin-top: 4px; color: var(--text-soft);">Полиция в общественных местах имеет право без видимой причины проверить документы и сумки. Это общепринятая практика безопасности, не беспокойтесь.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Money -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="banknote"></i></div>
+                    <div class="card-title">Деньги и банковские карты</div>
+                </div>
+                <div class="card-content">
+                    <div class="highlight-box warning" style="background: rgba(239, 68, 68, 0.05); border: 1px dashed rgba(239, 68, 68, 0.3); color: var(--text-main); margin-bottom: 12px;">
+                        <p><strong class="text-white">Российские банковские карты в Турции НЕ ПРИНИМАЮТ.</strong></p>
+                    </div>
+                    
+                    <p style="margin-bottom: 8px;"><strong class="text-white">Обмен валюты:</strong> Обменять рубли на турецкие лиры можно в городе. Много обменников находится в центре города, например, в районе <strong class="text-white">ТЦ "МаркАнталия"</strong>.</p>
+                    
+                    <div style="font-size: 12px; margin-top: 8px; margin-bottom: 6px; font-weight: 600; color: var(--text-soft);">Открыть ТЦ "МаркАнталия" на карте:</div>
+                    <div class="maps-grid" style="margin-bottom: 12px;">
+                        <a href="https://yandex.ru/maps/?text=MarkAntalya+Shopping+Center" target="_blank" class="map-btn">
+                            <i data-lucide="navigation"></i> Яндекс
+                        </a>
+                        <a href="https://maps.google.com/?q=MarkAntalya+Shopping+Center" target="_blank" class="map-btn">
+                            <i data-lucide="map"></i> Google
+                        </a>
+                        <a href="maps://maps.apple.com/?q=MarkAntalya+Shopping+Center" target="_blank" class="map-btn">
+                            <i data-lucide="compass"></i> Apple
+                        </a>
+                    </div>
+
+                    <ul class="info-list">
+                        <li>Не меняйте всю валюту в аэропорту — курс обмена в городе намного выгоднее.</li>
+                        <li>В аэропорту можно обменять небольшую сумму в банке на дорогу до отеля.</li>
+                        <li><strong class="text-white">Важно:</strong> в последнее время турецкие обменники неохотно принимают/сложно обменять доллары старого образца и мелкие купюры.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mobile Connection -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="wifi"></i></div>
+                    <div class="card-title">Мобильная связь и Интернет</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 10px;">Для комфорта семьи рекомендуется иметь хотя бы одну активную SIM-карту во время поездки.</p>
+                    <ul class="info-list">
+                        <li><strong class="text-white">eSIM:</strong> если телефон поддерживает виртуальные SIM-карты, можно заранее приобрести пакет интернет-трафика для Турции в своей стране.</li>
+                        <li><strong class="text-white">Пластиковые SIM-карты:</strong> можно приобрести по прилете в салонах турецких операторов (<strong class="text-white">Turkcell, Vodafone, Turk Telekom</strong>).</li>
+                        <li><strong class="text-white">Цена:</strong> средняя цена туристической SIM-карты составляет около <strong class="text-white">1500 лир</strong>. В аэропорту стойки операторов продают их значительно дороже.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Documents -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="file-text"></i></div>
+                    <div class="card-title">Документы и визовый режим</div>
+                </div>
+                <div class="card-content">
+                    <ul class="info-list">
+                        <li><strong class="text-white">Загранпаспорт:</strong> срок действия документа должен составлять <strong class="text-white">более 120 дней</strong> на момент въезда в Турцию.</li>
+                        <li><strong class="text-white">Срок пребывания:</strong> разрешенный безвизовый период составляет <strong class="text-white">60 + 30 дней</strong> (суммарно не более 90 дней в течение 180 дней).</li>
+                        <li><strong class="text-white">Страховка:</strong> медицинский страховой полис на границе не проверяют, но его настоятельно рекомендуется оформить для вашей безопасности.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Flyer images preview -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="image"></i></div>
+                    <div class="card-title">Оригинал брошюры</div>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 12px;">Вы можете открыть оригинальные графические страницы брошюры, извлеченные из PDF-файла:</p>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="openModal('images/page_1_img_1_Im0.png')">
+                            <i data-lucide="eye"></i> Страница 1
+                        </button>
+                        <button class="btn btn-primary" onclick="openModal('images/page_1_img_2_Im1.png')">
+                            <i data-lucide="eye"></i> Страница 2
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Logo -->
+        <div class="footer-logo">
+            ИНФОРМАЦИЯ ДЛЯ ГОСТЕЙ • АНТАЛИЯ 2026
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i data-lucide="check-circle" style="color: var(--primary); width: 18px; height: 18px;"></i>
+        <span id="toast-text">Скопировано!</span>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="modal" class="modal" onclick="closeModal()">
+        <button class="modal-close" onclick="closeModal()"><i data-lucide="x"></i></button>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modal-img" class="modal-img" src="" alt="Оригинал брошюры">
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Switch tabs logic
+        function switchTab(tabId) {
+            // Hide all tab panes
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(pane => pane.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show target pane
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+
+            // Find current button and make it active
+            // Switch tab triggers onclick, let's make button active based on parent context or argument
+            const btn = event.currentTarget;
+            btn.classList.add('active');
+
+            // Scroll to top of content smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Copy to clipboard helper
+        function copyText(text, successMsg) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMsg);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        // Toast message indicator
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            
+            toastText.textContent = message;
+            toast.classList.add('show');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Modal window handlers
+        function openModal(imgSrc) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-img');
+            modalImg.src = imgSrc;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Disable page scrolling
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Enable page scrolling
+        }
+    </script>
+</body>
+</html>

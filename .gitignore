@@ -1,0 +1,7 @@
+*.pdf
+extracted_data.json
+*.log
+inspect_*.py
+extract_*.py
+convert_*.py
+tashkent_*
