@@ -9,8 +9,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#070a13">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
 
     <style>
         :root {
@@ -37,6 +41,23 @@
             --radius-sm: 10px;
         }
 
+        body.light-theme {
+            --bg-main: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            --border-glow: rgba(0, 119, 182, 0.15);
+            --border-glow-hover: rgba(0, 119, 182, 0.4);
+            
+            --primary: #0077b6;
+            --primary-glow: rgba(0, 119, 182, 0.2);
+            --secondary: #d97706;
+            --secondary-glow: rgba(217, 119, 6, 0.15);
+            
+            --text-main: #0f172a;
+            --text-soft: #475569;
+            --text-dark: #94a3b8;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -55,6 +76,13 @@
                 radial-gradient(at 0% 0%, rgba(79, 172, 254, 0.15) 0px, transparent 40%),
                 radial-gradient(at 100% 100%, rgba(0, 242, 254, 0.1) 0px, transparent 45%);
             background-attachment: fixed;
+            transition: background-color var(--transition);
+        }
+
+        body.light-theme {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 119, 182, 0.08) 0px, transparent 40%),
+                radial-gradient(at 100% 100%, rgba(0, 180, 216, 0.05) 0px, transparent 45%);
         }
 
         /* Container styling */
@@ -63,13 +91,51 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
         }
 
         /* Header styling */
         header {
             text-align: center;
             margin-bottom: 24px;
-            padding: 20px 0 10px 0;
+            padding: 30px 0 10px 0;
+            position: relative;
+        }
+
+        /* Header control buttons */
+        .header-controls {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .control-btn {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        body.light-theme .control-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .control-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
         }
 
         .header-tag {
@@ -98,6 +164,12 @@
             margin-bottom: 6px;
         }
 
+        body.light-theme h1 {
+            background: linear-gradient(135deg, #0f172a 30%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .subtitle {
             font-size: 14px;
             color: var(--text-soft);
@@ -114,6 +186,11 @@
             padding: 6px;
             border-radius: var(--radius-md);
             border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-theme .tabs-nav {
+            background: rgba(226, 232, 240, 0.8);
+            border-color: rgba(0, 0, 0, 0.05);
         }
 
         .tab-btn {
@@ -144,6 +221,13 @@
             border: 1px solid rgba(0, 242, 254, 0.2);
         }
 
+        body.light-theme .tab-btn.active {
+            background: #fff;
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 119, 182, 0.15);
+        }
+
         /* Tab Content Pane */
         .tab-pane {
             display: none;
@@ -169,6 +253,11 @@
             position: relative;
             overflow: hidden;
             transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        body.light-theme .card {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .card:hover {
@@ -209,9 +298,17 @@
             color: var(--primary);
         }
 
+        body.light-theme .card-icon {
+            background: rgba(0, 119, 182, 0.08);
+        }
+
         .card.warning .card-icon {
             background: rgba(255, 179, 0, 0.1);
             color: var(--secondary);
+        }
+
+        body.light-theme .card.warning .card-icon {
+            background: rgba(217, 119, 6, 0.08);
         }
 
         .card-title {
@@ -226,6 +323,58 @@
             color: var(--text-soft);
         }
 
+        /* Search input bar */
+        .search-container {
+            position: relative;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            background: var(--bg-card-hover);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            color: var(--text-soft);
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+        }
+
+        #search-clear {
+            position: absolute;
+            right: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-soft);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #search-clear:hover {
+            color: var(--text-main);
+        }
+
         /* Highlight box */
         .highlight-box {
             background: rgba(255, 179, 0, 0.08);
@@ -237,9 +386,19 @@
             font-size: 13.5px;
         }
 
+        body.light-theme .highlight-box {
+            background: rgba(217, 119, 6, 0.04);
+            border-color: rgba(217, 119, 6, 0.25);
+        }
+
         .highlight-box.cyan {
             background: rgba(0, 242, 254, 0.05);
             border: 1px dashed rgba(0, 242, 254, 0.3);
+        }
+
+        body.light-theme .highlight-box.cyan {
+            background: rgba(0, 119, 182, 0.03);
+            border-color: rgba(0, 119, 182, 0.2);
         }
 
         .highlight-title {
@@ -305,9 +464,19 @@
             text-align: center;
         }
 
+        body.light-theme .btn {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
         .btn:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        body.light-theme .btn:hover {
+            background: rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.15);
         }
 
         .btn-primary {
@@ -317,9 +486,19 @@
             box-shadow: 0 4px 15px var(--primary-glow);
         }
 
+        body.light-theme .btn-primary {
+            background: linear-gradient(135deg, #0077b6 0%, #0096c7 100%);
+            color: #fff;
+        }
+
         .btn-primary:hover {
             background: linear-gradient(135deg, #00d2de 0%, #3f9cde 100%);
             box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+        }
+
+        body.light-theme .btn-primary:hover {
+            background: linear-gradient(135deg, #005f73 0%, #0081a7 100%);
+            box-shadow: 0 6px 20px rgba(0, 119, 182, 0.3);
         }
 
         .btn-whatsapp {
@@ -339,6 +518,11 @@
             color: var(--secondary);
         }
 
+        body.light-theme .btn-secondary {
+            background: rgba(217, 119, 6, 0.08);
+            border-color: rgba(217, 119, 6, 0.3);
+        }
+
         .btn-secondary:hover {
             background: rgba(255, 179, 0, 0.2);
             box-shadow: 0 4px 12px var(--secondary-glow);
@@ -355,10 +539,20 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        body.light-theme .badge {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
         .badge-accent {
             background: rgba(0, 242, 254, 0.1);
             color: var(--primary);
             border-color: rgba(0, 242, 254, 0.2);
+        }
+
+        body.light-theme .badge-accent {
+            background: rgba(0, 119, 182, 0.08);
+            border-color: rgba(0, 119, 182, 0.15);
         }
 
         /* Flex helpers */
@@ -390,11 +584,16 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 15px var(--primary-glow);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
             opacity: 0;
-            z-index: 1000;
+            z-index: 3000;
             display: flex;
             align-items: center;
             gap: 8px;
             backdrop-filter: blur(10px);
+        }
+
+        body.light-theme .toast {
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 0 10px rgba(0, 119, 182, 0.15);
         }
 
         .toast.show {
@@ -416,6 +615,10 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+        }
+
+        body.light-theme .modal {
+            background: rgba(241, 245, 249, 0.95);
         }
 
         .modal-content {
@@ -443,6 +646,12 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            z-index: 100;
+        }
+
+        body.light-theme .modal-close {
+            background: rgba(0,0,0,0.1);
+            color: #000;
         }
 
         .modal-img {
@@ -452,11 +661,8 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Grid for utility cards */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
+        body.light-theme .modal-img {
+            border-color: rgba(0,0,0,0.1);
         }
 
         /* Footer styling */
@@ -491,10 +697,20 @@
             transition: var(--transition);
         }
 
+        body.light-theme .map-btn {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.06);
+        }
+
         .map-btn:hover {
             color: var(--text-main);
             background: rgba(255,255,255,0.06);
             border-color: rgba(255,255,255,0.15);
+        }
+
+        body.light-theme .map-btn:hover {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.12);
         }
 
         /* App download list */
@@ -513,6 +729,11 @@
             border-radius: var(--radius-sm);
             font-weight: 500;
         }
+
+        body.light-theme .app-tag {
+            background: rgba(0, 119, 182, 0.05);
+            border-color: rgba(0, 119, 182, 0.15);
+        }
     </style>
 </head>
 <body>
@@ -521,6 +742,14 @@
         
         <!-- Header -->
         <header>
+            <div class="header-controls">
+                <button class="control-btn" id="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
+                    <i data-lucide="sun"></i>
+                </button>
+                <button class="control-btn" id="share-btn" onclick="openShareModal()" title="Поделиться сайтом">
+                    <i data-lucide="share-2"></i>
+                </button>
+            </div>
             <div class="header-tag">Информация для гостей</div>
             <h1>АНТАЛИЯ 2026</h1>
             <div class="subtitle">Интерактивный путеводитель и справочник</div>
@@ -631,15 +860,15 @@
                 <div class="card-content">
                     <div class="flex-between">
                         <span>Посадка:</span>
-                        <span class="text-white">65 лир</span>
+                        <span class="text-white price-tag" data-lira="65">65 лир</span>
                     </div>
                     <div class="flex-between">
                         <span>1 км пути:</span>
-                        <span class="text-white">44 лиры</span>
+                        <span class="text-white price-tag" data-lira="44">44 лиры</span>
                     </div>
                     <div class="flex-between" style="border-bottom: 1px dashed rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 10px;">
                         <span>Минимальная поездка:</span>
-                        <span class="text-white">210 лир</span>
+                        <span class="text-white price-tag" data-lira="210">210 лир</span>
                     </div>
 
                     <div class="highlight-box cyan">
@@ -669,11 +898,11 @@
                     
                     <div class="flex-between">
                         <span>Цена самой карты:</span>
-                        <span class="text-white">165 лир</span>
+                        <span class="text-white price-tag" data-lira="165">165 лир</span>
                     </div>
                     <div class="flex-between" style="margin-bottom: 12px;">
                         <span>Стоимость проезда (любой транспорт):</span>
-                        <span class="text-white">42 лиры</span>
+                        <span class="text-white price-tag" data-lira="42">42 лиры</span>
                     </div>
 
                     <div class="highlight-box cyan" style="margin: 12px 0;">
@@ -702,6 +931,15 @@
         <!-- Tab 3: Handbook (Info, Medical, Airport) -->
         <div id="tab-info" class="tab-pane">
             
+            <!-- Search bar -->
+            <div class="search-container">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="handbook-search" placeholder="Поиск в справочнике (связь, обмен, паспорт...)" oninput="filterHandbook()">
+                <button id="search-clear" onclick="clearSearch()" style="display: none;" title="Очистить поиск">
+                    <i data-lucide="x" style="width:16px; height:16px;"></i>
+                </button>
+            </div>
+
             <!-- Airport (AYT) -->
             <div class="card">
                 <div class="card-header">
@@ -848,6 +1086,17 @@
                     <div class="highlight-box warning" style="background: rgba(239, 68, 68, 0.05); border: 1px dashed rgba(239, 68, 68, 0.3); color: var(--text-main); margin-bottom: 12px;">
                         <p><strong class="text-white">Российские банковские карты в Турции НЕ ПРИНИМАЮТ.</strong></p>
                     </div>
+
+                    <!-- Currency converter -->
+                    <div class="highlight-box cyan" style="margin-top: 14px; margin-bottom: 14px;">
+                        <div class="highlight-title" style="color: var(--primary);"><i data-lucide="refresh-cw"></i> Конвертер цен (Лира → Рубль)</div>
+                        <p style="font-size: 13px; margin-bottom: 8px;">Задайте курс турецкой лиры в рублях, чтобы автоматически пересчитать все цены на сайте:</p>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 14px; font-weight: 600;">1 TRY = </span>
+                            <input type="number" id="lira-rate" value="2.7" step="0.1" min="0.1" style="width: 70px; padding: 6px 10px; background: rgba(0,0,0,0.15); border: 1px solid var(--border-glow); border-radius: var(--radius-sm); color: var(--text-main); font-weight: 700; outline: none; text-align: center;" oninput="updatePrices()">
+                            <span style="font-size: 14px; font-weight: 600;">RUB (₽)</span>
+                        </div>
+                    </div>
                     
                     <p style="margin-bottom: 8px;"><strong class="text-white">Обмен валюты:</strong> Обменять рубли на турецкие лиры можно в городе. Много обменников находится в центре города, например, в районе <strong class="text-white">ТЦ "МаркАнталия"</strong>.</p>
                     
@@ -883,7 +1132,7 @@
                     <ul class="info-list">
                         <li><strong class="text-white">eSIM:</strong> если телефон поддерживает виртуальные SIM-карты, можно заранее приобрести пакет интернет-трафика для Турции в своей стране.</li>
                         <li><strong class="text-white">Пластиковые SIM-карты:</strong> можно приобрести по прилете в салонах турецких операторов (<strong class="text-white">Turkcell, Vodafone, Turk Telekom</strong>).</li>
-                        <li><strong class="text-white">Цена:</strong> средняя цена туристической SIM-карты составляет около <strong class="text-white">1500 лир</strong>. В аэропорту стойки операторов продают их значительно дороже.</li>
+                        <li><strong class="text-white">Цена:</strong> средняя цена туристической SIM-карты составляет около <span class="text-white price-tag" data-lira="1500">1500 лир</span>. В аэропорту стойки операторов продают их значительно дороже.</li>
                     </ul>
                 </div>
             </div>
@@ -945,9 +1194,36 @@
         </div>
     </div>
 
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal" onclick="closeShareModal()">
+        <button class="modal-close" onclick="closeShareModal()"><i data-lucide="x"></i></button>
+        <div class="modal-content" onclick="event.stopPropagation()" style="background: var(--bg-card-hover); border: 1px solid var(--border-glow); padding: 30px; border-radius: var(--radius-lg); max-width: 320px; text-align: center;">
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 18px; margin-bottom: 15px; color: var(--text-main);">Поделиться сайтом</h3>
+            <div id="qrcode-container" style="background: #fff; padding: 12px; border-radius: var(--radius-md); display: inline-block; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <img id="share-qrcode" src="" alt="QR Code" style="display: block; width: 180px; height: 180px;">
+            </div>
+            <p style="font-size: 12px; color: var(--text-soft); margin-bottom: 15px;">Сканируйте QR-код для быстрого открытия путеводителя на другом устройстве</p>
+            <button class="btn btn-primary" onclick="copyShareLink()" style="width: 100%;">
+                <i data-lucide="link"></i> Копировать ссылку
+            </button>
+        </div>
+    </div>
+
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        // DOM Elements and events init
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+            // Update prices based on default rate
+            updatePrices();
+            // Load theme from localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                document.getElementById('theme-toggle').innerHTML = '<i data-lucide="moon"></i>';
+                lucide.createIcons();
+            }
+        });
 
         // Switch tabs logic
         function switchTab(tabId) {
@@ -966,7 +1242,6 @@
             }
 
             // Find current button and make it active
-            // Switch tab triggers onclick, let's make button active based on parent context or argument
             const btn = event.currentTarget;
             btn.classList.add('active');
 
@@ -998,7 +1273,7 @@
             }, 2500);
         }
 
-        // Modal window handlers
+        // Image Modal window handlers
         function openModal(imgSrc) {
             const modal = document.getElementById('modal');
             const modalImg = document.getElementById('modal-img');
@@ -1011,6 +1286,107 @@
             const modal = document.getElementById('modal');
             modal.style.display = 'none';
             document.body.style.overflow = 'auto'; // Enable page scrolling
+        }
+
+        // Share Modal handlers
+        function openShareModal() {
+            const modal = document.getElementById('share-modal');
+            const qrImg = document.getElementById('share-qrcode');
+            const currentUrl = encodeURIComponent(window.location.href);
+            
+            // We use the free qrserver API to generate the QR code
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${currentUrl}`;
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeShareModal() {
+            const modal = document.getElementById('share-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function copyShareLink() {
+            copyText(window.location.href, 'Ссылка скопирована в буфер обмена!');
+            closeShareModal();
+        }
+
+        // Theme Toggle handler
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            const themeBtn = document.getElementById('theme-toggle');
+            
+            if (isLight) {
+                localStorage.setItem('theme', 'light');
+                themeBtn.innerHTML = '<i data-lucide="moon"></i>';
+            } else {
+                localStorage.setItem('theme', 'dark');
+                themeBtn.innerHTML = '<i data-lucide="sun"></i>';
+            }
+            // Re-render icons
+            lucide.createIcons();
+            // Refresh prices layout to matches light colors if any
+            updatePrices();
+        }
+
+        // Search handbook logic
+        function filterHandbook() {
+            const query = document.getElementById('handbook-search').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('search-clear');
+            const cards = document.querySelectorAll('#tab-info .card');
+            
+            if (query.length > 0) {
+                clearBtn.style.display = 'flex';
+            } else {
+                clearBtn.style.display = 'none';
+            }
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                const content = card.querySelector('.card-content')?.textContent.toLowerCase() || '';
+                
+                if (title.includes(query) || content.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        function clearSearch() {
+            const searchInput = document.getElementById('handbook-search');
+            searchInput.value = '';
+            filterHandbook();
+            searchInput.focus();
+        }
+
+        // Lira to Ruble dynamic price updates
+        function updatePrices() {
+            const rateInput = document.getElementById('lira-rate');
+            const rate = parseFloat(rateInput.value) || 0;
+            const priceTags = document.querySelectorAll('.price-tag');
+            
+            priceTags.forEach(tag => {
+                const lira = parseFloat(tag.getAttribute('data-lira'));
+                if (!isNaN(lira)) {
+                    if (rate > 0) {
+                        const rub = Math.round(lira * rate);
+                        tag.innerHTML = `${lira} лир <span style="font-size: 12px; color: var(--secondary); font-weight: 600; opacity: 0.95;">(~${rub} ₽)</span>`;
+                    } else {
+                        tag.innerHTML = `${lira} лир`;
+                    }
+                }
+            });
+        }
+
+        // Register Service Worker for offline PWA support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('SW: Registered successfully!', reg.scope))
+                    .catch(err => console.log('SW: Registration failed!', err));
+            });
         }
     </script>
 </body>
