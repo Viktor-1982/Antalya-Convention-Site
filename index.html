@@ -734,6 +734,28 @@
             background: rgba(0, 119, 182, 0.05);
             border-color: rgba(0, 119, 182, 0.15);
         }
+
+        /* Weather Pill Widget */
+        .weather-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 179, 0, 0.08);
+            border: 1px solid rgba(255, 179, 0, 0.3);
+            color: var(--secondary);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            margin-top: 12px;
+            box-shadow: 0 4px 12px var(--secondary-glow);
+            transition: var(--transition);
+        }
+
+        body.light-theme .weather-pill {
+            background: rgba(217, 119, 6, 0.08);
+            border-color: rgba(217, 119, 6, 0.25);
+        }
     </style>
 </head>
 <body>
@@ -753,6 +775,14 @@
             <div class="header-tag">Информация для гостей</div>
             <h1>АНТАЛИЯ 2026</h1>
             <div class="subtitle">Интерактивный путеводитель и справочник</div>
+
+            <!-- Weather Widget -->
+            <div id="weather-widget" class="weather-pill" style="display: none;">
+                <i id="weather-icon" data-lucide="sun" style="width: 16px; height: 16px;"></i>
+                <span id="weather-temp">--°C</span>
+                <span style="opacity: 0.5;">•</span>
+                <span id="weather-desc">Анталия</span>
+            </div>
         </header>
 
         <!-- Navigation Tabs -->
@@ -1219,6 +1249,8 @@
             updatePrices();
             // Fetch live Lira rate automatically
             fetchLiveLiraRate();
+            // Fetch live Weather in Antalya
+            fetchWeather();
             // Load theme from localStorage
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'light') {
@@ -1227,6 +1259,43 @@
                 lucide.createIcons();
             }
         });
+
+        // Async Fetch Weather in Antalya from Open-Meteo API
+        async function fetchWeather() {
+            const widget = document.getElementById('weather-widget');
+            const tempEl = document.getElementById('weather-temp');
+            const descEl = document.getElementById('weather-desc');
+            const iconEl = document.getElementById('weather-icon');
+            
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=36.8969&longitude=30.7133&current_weather=true');
+                if (!res.ok) throw new Error('Weather API error');
+                const data = await res.json();
+                
+                if (data && data.current_weather) {
+                    const temp = Math.round(data.current_weather.temperature);
+                    const code = data.current_weather.weathercode;
+                    
+                    let desc = 'Солнечно';
+                    let iconName = 'sun';
+                    
+                    if (code === 0) { desc = 'Ясно, солнечно'; iconName = 'sun'; }
+                    else if (code >= 1 && code <= 3) { desc = 'Переменная облачность'; iconName = 'cloud-sun'; }
+                    else if (code >= 45 && code <= 48) { desc = 'Туман'; iconName = 'cloud-fog'; }
+                    else if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) { desc = 'Дождь'; iconName = 'cloud-rain'; }
+                    else if (code >= 95) { desc = 'Гроза'; iconName = 'cloud-lightning'; }
+                    
+                    if (tempEl) tempEl.textContent = `${temp > 0 ? '+' : ''}${temp}°C`;
+                    if (descEl) descEl.textContent = `Анталия, ${desc}`;
+                    if (iconEl) iconEl.setAttribute('data-lucide', iconName);
+                    
+                    if (widget) widget.style.display = 'inline-flex';
+                    lucide.createIcons();
+                }
+            } catch (err) {
+                console.log('Weather fetch error:', err);
+            }
+        }
 
         // Async Fetch Live Lira rate from API
         async function fetchLiveLiraRate() {
