@@ -1203,16 +1203,22 @@
                         <p><strong class="text-white">Российские банковские карты в Турции НЕ ПРИНИМАЮТ.</strong></p>
                     </div>
 
-                    <!-- Currency converter -->
-                    <div class="highlight-box cyan" style="margin-top: 14px; margin-bottom: 14px;">
-                        <div class="highlight-title" style="color: var(--primary);"><i data-lucide="refresh-cw"></i> Конвертер цен (Лира → Рубль)</div>
-                        <p style="font-size: 13px; margin-bottom: 8px;">Задайте курс турецкой лиры в рублях, чтобы автоматически пересчитать все цены на сайте:</p>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-size: 14px; font-weight: 600;">1 TRY = </span>
-                            <input type="number" id="lira-rate" value="1.67" step="0.01" min="0.1" style="width: 70px; padding: 6px 10px; background: rgba(0,0,0,0.15); border: 1px solid var(--border-glow); border-radius: var(--radius-sm); color: var(--text-main); font-weight: 700; outline: none; text-align: center;" oninput="updatePrices()">
-                            <span style="font-size: 14px; font-weight: 600;">RUB (₽)</span>
+                    <!-- Simple Currency Converter -->
+                    <div class="highlight-box cyan" style="margin-top: 14px; margin-bottom: 14px; padding: 16px;">
+                        <div class="highlight-title" style="color: var(--primary);"><i data-lucide="calculator"></i> Конвертер лир в рубли</div>
+                        <p style="font-size: 13px; margin-bottom: 10px;">Введите любую сумму в лирах, чтобы узнать стоимость в рублях:</p>
+                        
+                        <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.15); padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glow); flex-wrap: wrap;">
+                            <span style="font-size: 14px; font-weight: 600;">Сумма:</span>
+                            <input type="number" id="calc-try" value="100" min="0" step="1" style="width: 85px; padding: 6px 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-sm); color: var(--text-main); font-size: 16px; font-weight: 800; outline: none; text-align: center;" oninput="convertFromTry()">
+                            <span style="font-size: 16px; font-weight: 700; color: var(--primary);">₺  = </span>
+                            <span id="calc-rub-result" style="font-size: 18px; font-weight: 800; color: var(--whatsapp);">167 ₽</span>
                         </div>
-                        <div id="rate-status" style="margin-top: 6px;"></div>
+
+                        <div style="margin-top: 10px; font-size: 12px; color: var(--text-soft); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                            <span>Курс: 1 TRY = <input type="number" id="lira-rate" value="1.67" step="0.01" min="0.1" style="width: 55px; padding: 2px 6px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glow); border-radius: 4px; color: var(--text-main); font-weight: 700; text-align: center;" oninput="updatePrices()"> RUB</span>
+                            <span id="rate-status"></span>
+                        </div>
                     </div>
                     
                     <p style="margin-bottom: 8px;"><strong class="text-white">Обмен валюты:</strong> Обменять рубли на турецкие лиры можно в городе. Много обменников находится в центре города, например, в районе <strong class="text-white">ТЦ "МаркАнталия"</strong>.</p>
@@ -1661,10 +1667,22 @@
             return 'лир';
         }
 
-        // Lira to Ruble dynamic price updates
+        // Simple Currency Calculator Function
+        function convertFromTry() {
+            const tryInput = document.getElementById('calc-try');
+            const rubResult = document.getElementById('calc-rub-result');
+            const rateInput = document.getElementById('lira-rate');
+            if (!tryInput || !rubResult || !rateInput) return;
+            const rate = parseFloat(rateInput.value) || 1.67;
+            const tryVal = parseFloat(tryInput.value) || 0;
+            const rubVal = Math.round(tryVal * rate);
+            rubResult.textContent = `${rubVal} ₽`;
+        }
+
+        // Lira to Ruble dynamic price updates for all tags on the site
         function updatePrices() {
             const rateInput = document.getElementById('lira-rate');
-            const rate = parseFloat(rateInput.value) || 0;
+            const rate = parseFloat(rateInput ? rateInput.value : 1.67) || 1.67;
             const priceTags = document.querySelectorAll('.price-tag');
             
             priceTags.forEach(tag => {
@@ -1679,6 +1697,9 @@
                     }
                 }
             });
+
+            // Update simple calculator
+            convertFromTry();
         }
 
         // Register Service Worker for offline PWA support
